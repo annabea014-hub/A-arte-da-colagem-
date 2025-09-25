@@ -13,91 +13,238 @@
         }
 
         :root {
-            --primary-color: #1a1a1a;
-            --secondary-color: #333;
-            --accent-color: #f8f8f8;
-            --gold-accent: #d4af37;
-            --text-light: #666;
+            --primary-color: #000000;
+            --secondary-color: #1a1a1a;
+            --accent-color: #111111;
+            --gold-accent: #FFD700;
+            --text-light: #cccccc;
+            --text-dark: #888888;
             --white: #ffffff;
+            --blue-glow: #00BFFF;
+            --cyan-glow: #00FFFF;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--primary-color);
-            background: var(--white);
+            color: var(--white);
+            background: var(--primary-color);
             overflow-x: hidden;
         }
 
-        /* Hero Section with Video Background */
+        /* Hero Section with 3D Molecules */
         .hero {
             min-height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
             overflow: hidden;
-            background: linear-gradient(135deg, var(--accent-color) 0%, var(--white) 100%);
+            background: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000000 100%);
         }
 
-        .video-background {
+        .molecular-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            opacity: 0.3;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .chemical-animation {
+        /* 3D Molecular Structures */
+        .molecule-3d {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(26, 26, 26, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
-            animation: chemicalReaction 8s ease-in-out infinite;
+            opacity: 0.6;
+            animation: float3d 8s ease-in-out infinite;
         }
 
-        @keyframes chemicalReaction {
-            0%, 100% { 
-                transform: scale(1) rotate(0deg);
+        .molecule-core {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, var(--blue-glow) 0%, var(--cyan-glow) 50%, transparent 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 20px var(--blue-glow);
+        }
+
+        .molecule-bond {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+            height: 2px;
+            opacity: 0.8;
+        }
+
+        .bond-1 {
+            width: 40px;
+            top: 9px;
+            left: 20px;
+            animation: bondPulse 3s ease-in-out infinite;
+        }
+
+        .bond-2 {
+            width: 40px;
+            top: 9px;
+            left: -40px;
+            animation: bondPulse 3s ease-in-out infinite 1s;
+        }
+
+        .bond-3 {
+            width: 40px;
+            top: -20px;
+            left: -10px;
+            transform: rotate(60deg);
+            animation: bondPulse 3s ease-in-out infinite 2s;
+        }
+
+        .bond-4 {
+            width: 40px;
+            top: 30px;
+            left: -10px;
+            transform: rotate(-60deg);
+            animation: bondPulse 3s ease-in-out infinite 0.5s;
+        }
+
+        .molecule-3d:nth-child(1) {
+            left: 10%;
+            top: 20%;
+            animation-delay: 0s;
+            transform: scale(0.8);
+        }
+
+        .molecule-3d:nth-child(2) {
+            left: 80%;
+            top: 15%;
+            animation-delay: 2s;
+            transform: scale(1.2);
+        }
+
+        .molecule-3d:nth-child(3) {
+            left: 20%;
+            top: 70%;
+            animation-delay: 4s;
+            transform: scale(0.9);
+        }
+
+        .molecule-3d:nth-child(4) {
+            left: 75%;
+            top: 75%;
+            animation-delay: 6s;
+            transform: scale(1.1);
+        }
+
+        .molecule-3d:nth-child(5) {
+            left: 50%;
+            top: 40%;
+            animation-delay: 1s;
+            transform: scale(0.7);
+        }
+
+        @keyframes float3d {
+            0%, 100% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(var(--scale, 1));
+                opacity: 0.6;
+            }
+            25% {
+                transform: translateY(-20px) rotateX(90deg) rotateY(45deg) scale(var(--scale, 1));
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-30px) rotateX(180deg) rotateY(90deg) scale(var(--scale, 1));
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-15px) rotateX(270deg) rotateY(135deg) scale(var(--scale, 1));
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes bondPulse {
+            0%, 100% {
                 opacity: 0.3;
+                box-shadow: 0 0 5px var(--cyan-glow);
             }
-            50% { 
-                transform: scale(1.1) rotate(2deg);
-                opacity: 0.5;
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px var(--blue-glow);
             }
         }
 
-        .molecules {
+        /* Floating Particles */
+        .chemical-particles {
             position: absolute;
             width: 100%;
             height: 100%;
             overflow: hidden;
         }
 
-        .molecule {
+        .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: var(--gold-accent);
             border-radius: 50%;
-            opacity: 0.6;
-            animation: float 6s ease-in-out infinite;
+            opacity: 0;
+            animation: particleRise 12s linear infinite;
+            box-shadow: 0 0 6px var(--gold-accent);
         }
 
-        .molecule:nth-child(1) { left: 10%; top: 20%; animation-delay: -1s; }
-        .molecule:nth-child(2) { left: 80%; top: 30%; animation-delay: -2s; }
-        .molecule:nth-child(3) { left: 60%; top: 70%; animation-delay: -3s; }
-        .molecule:nth-child(4) { left: 20%; top: 80%; animation-delay: -4s; }
-        .molecule:nth-child(5) { left: 90%; top: 60%; animation-delay: -5s; }
+        .particle:nth-child(odd) {
+            background: var(--blue-glow);
+            box-shadow: 0 0 6px var(--blue-glow);
+        }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-20px) scale(1.2); }
+        .particle:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 15%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 25%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 35%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 45%; animation-delay: 8s; }
+        .particle:nth-child(6) { left: 55%; animation-delay: 1s; }
+        .particle:nth-child(7) { left: 65%; animation-delay: 3s; }
+        .particle:nth-child(8) { left: 75%; animation-delay: 5s; }
+        .particle:nth-child(9) { left: 85%; animation-delay: 7s; }
+        .particle:nth-child(10) { left: 95%; animation-delay: 9s; }
+
+        @keyframes particleRise {
+            0% {
+                opacity: 0;
+                top: 110%;
+                transform: translateX(0px) scale(0.5);
+            }
+            10% {
+                opacity: 1;
+                transform: translateX(20px) scale(1);
+            }
+            20% {
+                transform: translateX(-15px) scale(0.8);
+            }
+            30% {
+                transform: translateX(25px) scale(1.2);
+            }
+            40% {
+                transform: translateX(-10px) scale(0.9);
+            }
+            50% {
+                transform: translateX(30px) scale(1.1);
+            }
+            60% {
+                transform: translateX(-20px) scale(0.7);
+            }
+            70% {
+                transform: translateX(15px) scale(1);
+            }
+            80% {
+                transform: translateX(-5px) scale(0.8);
+            }
+            90% {
+                opacity: 1;
+                transform: translateX(10px) scale(0.6);
+            }
+            100% {
+                opacity: 0;
+                top: -10%;
+                transform: translateX(0px) scale(0.3);
+            }
         }
 
         .container {
@@ -105,88 +252,109 @@
             margin: 0 auto;
             padding: 0 2rem;
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
         .hero-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 4rem;
             align-items: center;
         }
 
         .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 700;
             margin-bottom: 1rem;
             line-height: 1.1;
+            color: var(--white);
         }
 
         .hero-text .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-light);
             margin-bottom: 2rem;
             font-weight: 300;
         }
 
         .hero-text .highlight {
-            color: var(--gold-accent);
-            font-weight: 600;
+            background: linear-gradient(45deg, var(--gold-accent), #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         }
 
         .product-preview {
             position: relative;
-            transform: perspective(1000px) rotateY(-15deg);
-            transition: all 0.6s ease;
-        }
-
-        .product-preview:hover {
-            transform: perspective(1000px) rotateY(-5deg) translateY(-10px);
-        }
-
-        .product-image {
-            width: 100%;
-            max-width: 400px;
-            height: 500px;
-            border-radius: 15px;
-            object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            background: var(--white);
-            padding: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 400px;
         }
 
-        .product-image img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
+        .product-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('cola-conceito.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px) brightness(0.3);
+            opacity: 0.4;
+            border-radius: 20px;
+        }
+
+        .product-text-overlay {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            background: rgba(0,0,0,0.8);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            border: 2px solid var(--gold-accent);
+            backdrop-filter: blur(10px);
+        }
+
+        .product-text-overlay h2 {
+            font-size: 2.2rem;
+            color: var(--gold-accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .product-text-overlay p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         .cta-button {
             display: inline-block;
-            background: var(--gold-accent);
-            color: var(--white);
+            background: linear-gradient(45deg, var(--gold-accent), #FFA500);
+            color: var(--primary-color);
             padding: 1rem 2.5rem;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             border-radius: 50px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
             margin-top: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(45deg, #FFA500, var(--gold-accent));
         }
 
         /* Stats Section */
         .stats {
             padding: 4rem 0;
-            background: var(--accent-color);
+            background: var(--secondary-color);
         }
 
         .stats-grid {
@@ -198,9 +366,15 @@
 
         .stat-item {
             padding: 1.5rem;
-            background: var(--white);
+            background: var(--accent-color);
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-accent);
         }
 
         .stat-number {
@@ -218,6 +392,7 @@
         /* About Section */
         .about {
             padding: 6rem 0;
+            background: var(--primary-color);
         }
 
         .about-content {
@@ -234,7 +409,8 @@
             border-radius: 50%;
             margin: 0 auto;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 3px solid var(--gold-accent);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
         }
 
         .author-image img {
@@ -247,6 +423,7 @@
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             font-weight: 700;
+            color: var(--gold-accent);
         }
 
         .about-text p {
@@ -268,13 +445,18 @@
             background: var(--accent-color);
             border-radius: 10px;
             font-size: 0.9rem;
-            color: var(--secondary-color);
+            color: var(--text-light);
+            border: 1px solid #333;
+        }
+
+        .credential-item strong {
+            color: var(--gold-accent);
         }
 
         /* Content Preview */
         .content-preview {
             padding: 6rem 0;
-            background: var(--accent-color);
+            background: var(--secondary-color);
         }
 
         .content-preview h2 {
@@ -282,6 +464,7 @@
             font-size: 2.5rem;
             margin-bottom: 3rem;
             font-weight: 700;
+            color: var(--gold-accent);
         }
 
         .topics-grid {
@@ -291,21 +474,23 @@
         }
 
         .topic-card {
-            background: var(--white);
+            background: var(--accent-color);
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
         }
 
         .topic-card:hover {
             transform: translateY(-5px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
         }
 
         .topic-card h3 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            color: var(--gold-accent);
         }
 
         .topic-card p {
@@ -316,7 +501,7 @@
         /* Social Proof Section */
         .social-proof {
             padding: 6rem 0;
-            background: var(--white);
+            background: var(--primary-color);
         }
 
         .social-proof h2 {
@@ -324,6 +509,7 @@
             font-size: 2.5rem;
             margin-bottom: 3rem;
             font-weight: 700;
+            color: var(--gold-accent);
         }
 
         .testimonials-grid {
@@ -337,12 +523,13 @@
             background: var(--accent-color);
             padding: 2rem;
             border-radius: 15px;
-            position: relative;
-            transition: transform 0.3s ease;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
         }
 
         .testimonial:hover {
             transform: translateY(-5px);
+            border-color: var(--gold-accent);
         }
 
         .testimonial-header {
@@ -355,24 +542,25 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--gold-accent);
+            background: linear-gradient(45deg, var(--gold-accent), #FFA500);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: var(--white);
+            color: var(--primary-color);
             margin-right: 1rem;
         }
 
         .testimonial-info h4 {
             margin: 0;
             font-weight: 600;
+            color: var(--white);
         }
 
         .testimonial-info p {
             margin: 0;
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-dark);
         }
 
         .stars {
@@ -384,7 +572,7 @@
         .testimonial-text {
             font-style: italic;
             line-height: 1.6;
-            color: var(--secondary-color);
+            color: var(--text-light);
         }
 
         /* Live Comments */
@@ -395,6 +583,7 @@
             margin-top: 3rem;
             max-height: 400px;
             overflow-y: auto;
+            border: 1px solid #333;
         }
 
         .live-comments h3 {
@@ -402,12 +591,13 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--gold-accent);
         }
 
         .live-dot {
             width: 8px;
             height: 8px;
-            background: #22c55e;
+            background: #00FF00;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
@@ -423,7 +613,7 @@
             gap: 1rem;
             margin-bottom: 1.5rem;
             padding: 1rem;
-            background: var(--white);
+            background: var(--secondary-color);
             border-radius: 10px;
             opacity: 0;
             transform: translateY(20px);
@@ -441,12 +631,12 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--gold-accent);
+            background: linear-gradient(45deg, var(--gold-accent), #FFA500);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            color: var(--white);
+            color: var(--primary-color);
             font-size: 0.9rem;
         }
 
@@ -464,15 +654,16 @@
         .comment-name {
             font-weight: 600;
             margin-right: 1rem;
+            color: var(--white);
         }
 
         .comment-time {
-            color: var(--text-light);
+            color: var(--text-dark);
             font-size: 0.8rem;
         }
 
         .comment-text {
-            color: var(--secondary-color);
+            color: var(--text-light);
             line-height: 1.5;
         }
 
@@ -487,9 +678,15 @@
         .trust-item {
             text-align: center;
             padding: 1.5rem;
-            background: var(--white);
+            background: var(--accent-color);
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .trust-item:hover {
+            border-color: var(--gold-accent);
+            transform: translateY(-3px);
         }
 
         .trust-icon {
@@ -500,6 +697,7 @@
         .trust-item h4 {
             margin-bottom: 0.5rem;
             font-weight: 600;
+            color: var(--gold-accent);
         }
 
         .trust-item p {
@@ -507,24 +705,25 @@
             font-size: 0.9rem;
         }
 
-        /* CTA Section */
+        /* Final CTA Section */
         .final-cta {
             padding: 6rem 0;
-            background: var(--primary-color);
-            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             text-align: center;
+            border-top: 2px solid var(--gold-accent);
         }
 
         .final-cta h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             font-weight: 700;
+            color: var(--gold-accent);
         }
 
         .final-cta p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            color: var(--text-light);
         }
 
         .price {
@@ -539,6 +738,7 @@
             opacity: 0.6;
             font-size: 1.5rem;
             margin-right: 1rem;
+            color: var(--text-dark);
         }
 
         /* Responsive */
@@ -550,8 +750,8 @@
             }
 
             .product-preview {
-                transform: none;
                 order: -1;
+                min-height: 300px;
             }
 
             .container {
@@ -559,6 +759,10 @@
             }
 
             .credentials {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
                 grid-template-columns: 1fr;
             }
         }
@@ -595,14 +799,59 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <div class="chemical-animation"></div>
-        <div class="molecules">
-            <div class="molecule"></div>
-            <div class="molecule"></div>
-            <div class="molecule"></div>
-            <div class="molecule"></div>
-            <div class="molecule"></div>
+        <div class="molecular-background">
+            <!-- 3D Molecules -->
+            <div class="molecule-3d" style="--scale: 0.8;">
+                <div class="molecule-core"></div>
+                <div class="molecule-bond bond-1"></div>
+                <div class="molecule-bond bond-2"></div>
+                <div class="molecule-bond bond-3"></div>
+                <div class="molecule-bond bond-4"></div>
+            </div>
+            <div class="molecule-3d" style="--scale: 1.2;">
+                <div class="molecule-core"></div>
+                <div class="molecule-bond bond-1"></div>
+                <div class="molecule-bond bond-2"></div>
+                <div class="molecule-bond bond-3"></div>
+                <div class="molecule-bond bond-4"></div>
+            </div>
+            <div class="molecule-3d" style="--scale: 0.9;">
+                <div class="molecule-core"></div>
+                <div class="molecule-bond bond-1"></div>
+                <div class="molecule-bond bond-2"></div>
+                <div class="molecule-bond bond-3"></div>
+                <div class="molecule-bond bond-4"></div>
+            </div>
+            <div class="molecule-3d" style="--scale: 1.1;">
+                <div class="molecule-core"></div>
+                <div class="molecule-bond bond-1"></div>
+                <div class="molecule-bond bond-2"></div>
+                <div class="molecule-bond bond-3"></div>
+                <div class="molecule-bond bond-4"></div>
+            </div>
+            <div class="molecule-3d" style="--scale: 0.7;">
+                <div class="molecule-core"></div>
+                <div class="molecule-bond bond-1"></div>
+                <div class="molecule-bond bond-2"></div>
+                <div class="molecule-bond bond-3"></div>
+                <div class="molecule-bond bond-4"></div>
+            </div>
+            
+            <!-- Chemical Particles -->
+            <div class="chemical-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
         </div>
+        
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
@@ -612,8 +861,10 @@
                     <a href="https://pay.hotmart.com/Q99984516A" class="cta-button" target="_blank">Quero Dominar a Química</a>
                 </div>
                 <div class="product-preview">
-                    <div class="product-image">
-                        <img src="cola-conceito.jpg" alt="Cola para Extensão de Cílios Conceito & Beleza">
+                    <div class="product-background"></div>
+                    <div class="product-text-overlay">
+                        <h2>E-book Completo</h2>
+                        <p>Mais de 50 páginas de conhecimento científico aplicado à extensão de cílios profissional</p>
                     </div>
                 </div>
             </div>
@@ -807,7 +1058,7 @@
                 <span>R$ 197</span>
             </div>
             <a href="https://pay.hotmart.com/Q99984516A" class="cta-button" target="_blank">Comprar Agora - Acesso Imediato</a>
-            <p style="margin-top: 1rem; opacity: 0.8;">Garantia de 7 dias ou seu dinheiro de volta</p>
+            <p style="margin-top: 1rem; opacity: 0.8; color: var(--text-light);">Garantia de 7 dias ou seu dinheiro de volta</p>
         </div>
     </section>
 
