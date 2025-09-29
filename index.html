@@ -645,7 +645,7 @@
 
         .comment-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 0.5rem;
         }
@@ -740,7 +740,7 @@
             color: var(--text-dark);
         }
 
-        /* Molecular Background for All Sections - IDENTICAL TO HERO */
+        /* Molecular Background for All Sections */
         .section-with-molecules {
             position: relative;
             overflow: hidden;
@@ -809,7 +809,6 @@
             animation: bondPulse 3s ease-in-out infinite 0.5s;
         }
 
-        /* Enhanced particles for sections - IDENTICAL TO HERO */
         .section-particles {
             position: absolute;
             width: 100%;
@@ -835,10 +834,6 @@
             box-shadow: 0 0 6px var(--blue-glow);
         }
 
-        /* Video Section */
-        .video-section {
-            display: none;
-        }
         @media (max-width: 768px) {
             .hero-content,
             .about-content {
@@ -1174,56 +1169,6 @@
         </div>
     </section>
 
-    <!-- Video Section -->
-    <section class="video-section section-with-molecules">
-        <div class="section-molecules">
-            <div class="molecule-3d" style="left: 10%; top: 20%; animation-delay: 0s; transform: scale(0.8);">
-                <div class="molecule-core"></div>
-                <div class="molecule-bond bond-1"></div>
-                <div class="molecule-bond bond-2"></div>
-                <div class="molecule-bond bond-3"></div>
-                <div class="molecule-bond bond-4"></div>
-            </div>
-            <div class="molecule-3d" style="left: 80%; top: 30%; animation-delay: 2s; transform: scale(1.2);">
-                <div class="molecule-core"></div>
-                <div class="molecule-bond bond-1"></div>
-                <div class="molecule-bond bond-2"></div>
-                <div class="molecule-bond bond-3"></div>
-                <div class="molecule-bond bond-4"></div>
-            </div>
-            <div class="molecule-3d" style="left: 60%; top: 70%; animation-delay: 4s; transform: scale(0.9);">
-                <div class="molecule-core"></div>
-                <div class="molecule-bond bond-1"></div>
-                <div class="molecule-bond bond-2"></div>
-                <div class="molecule-bond bond-3"></div>
-                <div class="molecule-bond bond-4"></div>
-            </div>
-            <div class="molecule-3d" style="left: 20%; top: 80%; animation-delay: 6s; transform: scale(1.1);">
-                <div class="molecule-core"></div>
-                <div class="molecule-bond bond-1"></div>
-                <div class="molecule-bond bond-2"></div>
-                <div class="molecule-bond bond-3"></div>
-                <div class="molecule-bond bond-4"></div>
-            </div>
-            <div class="molecule-3d" style="left: 50%; top: 40%; animation-delay: 1s; transform: scale(0.7);">
-                <div class="molecule-core"></div>
-                <div class="molecule-bond bond-1"></div>
-                <div class="molecule-bond bond-2"></div>
-                <div class="molecule-bond bond-3"></div>
-                <div class="molecule-bond bond-4"></div>
-            </div>
-        </div>
-        <div class="section-particles">
-            <div class="section-particle" style="left: 5%; animation-delay: 0s;"></div>
-            <div class="section-particle" style="left: 15%; animation-delay: 2s;"></div>
-            <div class="section-particle" style="left: 25%; animation-delay: 4s;"></div>
-            <div class="section-particle" style="left: 35%; animation-delay: 6s;"></div>
-            <div class="section-particle" style="left: 45%; animation-delay: 8s;"></div>
-            <div class="section-particle" style="left: 55%; animation-delay: 1s;"></div>
-            <div class="section-particle" style="left: 65%; animation-delay: 3s;"></div>
-            <div class="section-particle" style="left: 75%; animation-delay: 5s;"></div>
-            <div class="section-particle" style="left: 85%; animation-delay: 7s;"></div>
-            <div class="section-particle" style="left: 95%; animation-delay: 9s;"></div>
     <!-- Social Proof -->
     <section class="social-proof section-with-molecules">
         <div class="section-molecules">
@@ -1250,7 +1195,6 @@
         <div class="container">
             <h2>O que as profissionais estão falando</h2>
             
-            <!-- Testimonials Grid -->
             <div class="testimonials-grid">
                 <div class="testimonial">
                     <div class="testimonial-header">
@@ -1301,15 +1245,11 @@
                 </div>
             </div>
 
-            <!-- Live Comments Section -->
             <div class="live-comments">
                 <h3><span class="live-dot"></span>Comentários ao vivo</h3>
-                <div id="comments-container">
-                    <!-- Comments will be dynamically added here -->
-                </div>
+                <div id="comments-container"></div>
             </div>
 
-            <!-- Trust Indicators -->
             <div class="trust-indicators">
                 <div class="trust-item">
                     <div class="trust-icon">🔒</div>
@@ -1350,7 +1290,6 @@
     </section>
 
     <script>
-        // Live Comments System
         const comments = [
             {
                 name: "Patricia Silva",
@@ -1433,10 +1372,8 @@
                 </div>
             `;
             
-            // Add to top of container
             container.insertBefore(commentElement, container.firstChild);
             
-            // Remove oldest comments to keep only 4-5 visible
             const allComments = container.querySelectorAll('.comment');
             if (allComments.length > 5) {
                 container.removeChild(allComments[allComments.length - 1]);
@@ -1445,17 +1382,14 @@
             currentCommentIndex = (currentCommentIndex + 1) % comments.length;
         }
 
-        // Add initial comments
         for (let i = 0; i < 4; i++) {
             setTimeout(() => addComment(), i * 500);
         }
 
-        // Continue adding comments every 8-15 seconds
         setInterval(() => {
             addComment();
         }, Math.random() * 7000 + 8000);
 
-        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1469,7 +1403,6 @@
             });
         });
 
-        // Add scroll animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1484,7 +1417,6 @@
             });
         }, observerOptions);
 
-        // Observe all sections except hero
         document.querySelectorAll('section:not(.hero)').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(30px)';
